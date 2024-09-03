@@ -1,4 +1,4 @@
-# Library Management System
+# Library Management System - Java
 
 ## Project Overview
 The Library Management System is a console-based application designed to manage the book operations of a library. It allows users to add books, track the issue and return of books. This project is implemented in three different programming languages: C, Java, and Python. This is the Java version.
