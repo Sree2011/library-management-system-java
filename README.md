@@ -23,6 +23,6 @@ This Java project contains files for a basic library book management system.
 Refer to the following links for the documentation:
 
 1. [main.java](./docs/com/library/books/Main.html)
-2. [book.java](./book.md)
-3. [bookutils.java](./bookutils.md)
+2. [book.java](./docs/com/library/books/Book.html)
+3. [bookutils.java](./docs/com/library/books/BookUtils.html)
 
