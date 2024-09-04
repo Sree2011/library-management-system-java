@@ -28,7 +28,7 @@ jobs:
     - name: Generate Javadoc
       run: |
         mkdir -p docs
-        javadoc -d docs $(find java/src -name "*.java")
+        javadoc -d docs $(find book-management/src -name "*.java")
 
     - name: Commit Javadoc
       run: |
