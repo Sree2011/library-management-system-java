@@ -19,6 +19,7 @@ This Java project contains files for a basic library book management system.
 
 
 ## Documentation
+This project's documentation was generated using [Javadoc](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html) and [Github Actions](./.github/workflows/generate-javadoc.yml)
 
 Refer to the following links for the documentation:
 
