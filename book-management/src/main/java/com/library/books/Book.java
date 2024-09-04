@@ -1,5 +1,7 @@
 package com.library.books;
 
+import java.util.HashMap;
+import java.util.List;
 /**
  * The {@code Book} class represents a book in the library.
  * It contains details about the book such as its name, author, volume, and issued status.
@@ -8,22 +10,29 @@ public class Book {
     /**
      * The name of the book.
      */
-    String name;
+    static String name;
 
     /**
      * The author of the book.
      */
-    String author;
+    static String author;
 
     /**
      * The volume of the book.
      */
-    String volume;
+    static String volume;
 
     /**
      * The issued status of the book.
      */
-    String issued;
+    static String issued;
+
+
+    /**
+     * 
+     * Filepath of the library csv file
+     */
+    static String filePath = "./book-management/src/data/books.csv";
 
     /**
      * Constructs a new {@code Book} with the specified details.
@@ -47,7 +56,18 @@ public class Book {
      * @throws UnsupportedOperationException if the method is called
      */
     public static void add_book() {
-        throw new UnsupportedOperationException("Not mentioned yet");
+        HashMap<String,String> my_dict = new HashMap<String,String>();
+        my_dict.put("name", name);
+        my_dict.put("author",author);
+        my_dict.put("volume",volume);
+        my_dict.put("issued",issued);
+
+        BookUtils.appendDictToCsv(filePath,my_dict);
+
+    }
+
+    public static List<String[]> get_all_books(){
+        return BookUtils.getBooks(filePath);
     }
 
     /**
@@ -56,8 +76,8 @@ public class Book {
      *
      * @throws UnsupportedOperationException if the method is called
      */
-    public static void find_book() {
-        throw new UnsupportedOperationException("Not mentioned yet");
+    public static List<String[]> find_book(String name) {
+        return BookUtils.findBook(filePath, name);
     }
 
     /**
@@ -66,8 +86,10 @@ public class Book {
      *
      * @throws UnsupportedOperationException if the method is called
      */
-    public static void issue_book() {
-        throw new UnsupportedOperationException("Not mentioned yet");
+    public static void issue_book(String name) {
+        List<String[]> book = find_book(name);
+        System.out.println(book);
+
     }
 
     /**
