@@ -1,67 +1,62 @@
 package com.library.books;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
+import org.dflib.DataFrame;
+import org.dflib.csv.Csv;
 
 public class BookUtils {
 
     public static void appendDictToCsv(String filePath, HashMap<String, String> myDict) {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath, true))) {
-            String[] entries = {myDict.get("name"), myDict.get("author"), myDict.get("volume"), myDict.get("issued")};
-            writer.writeNext(entries);
+        try {
+            DataFrame df = Csv.load(filePath);
+            DataFrame newRow = DataFrame
+        .byArrayRow("name", "author","volume","issued") 
+        .appender() 
+        .append(myDict.get("name"), myDict.get("author"),myDict.get("volume"),myDict.get("issued"))
+        .toDataFrame();
+            df = df.vConcat(newRow);
+            Csv.save(df, filePath);
             System.out.println("List appended to " + filePath + " successfully.");
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
-    public static List<String[]> getBooks(String filePath) {
-        List<String[]> books = new ArrayList<>();
-        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            books = reader.readAll();
-        } catch (IOException | CsvException e) {
-            System.out.println("Error reading " + filePath + ": " + e.getMessage());
-        }
-        return books;
+    public static DataFrame getBooks(String filePath) {
+        return Csv.load(filePath);
     }
 
-    public static List<String[]> findBook(String filePath, String name) {
-        List<String[]> books = getBooks(filePath);
-        if (books.isEmpty()) {
-            return Collections.emptyList();
+    public static DataFrame findBook(String filePath, String name) {
+        DataFrame books = getBooks(filePath);
+        if (books.height() == 0) {
+            return DataFrame.empty();
         }
-        return books.stream()
-                .filter(book -> book[0].equalsIgnoreCase(name))
-                .collect(Collectors.toList());
+        return books.rows(row -> row.get("name").toString().equalsIgnoreCase(name)).select();
     }
 
-    public static void updateBookStatus(String filePath, String name, String status) {
-        List<String[]> books = getBooks(filePath);
-        for (String[] book : books) {
-            if (book[0].equalsIgnoreCase(name)) {
-                book[3] = status;
-            }
-        }
-        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
-            writer.writeAll(books);
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
+    public static DataFrame updateBookStatus(String filePath, String name, String status){
+     
+        DataFrame books = Csv.load(filePath); // Read the CSV data
+
+        DataFrame upData = findBook(filePath, name);
+        books.
+
+        //Csv.save(upData,filePath);
+
+        // Update the DataFrame with changes from the map
+        
+       
+        return upData;
+      
+
+        
+
+}
 
     public static void main(String[] args) {
-        String filepath = "./book-management/src/data/books.csv";
-        HashMap<String,String> map = new HashMap<String,String>();
+        String filePath = "./book-management/src/data/books.csv";
+        HashMap<String, String> map = new HashMap<>();
         String[] keys = {"name", "author", "volume", "issued"};
         String[] values = {"value1", "value2", "value3", "no"};
 
@@ -71,9 +66,14 @@ public class BookUtils {
         }
 
         // Print the HashMap
-        System.out.println(map);
-        appendDictToCsv(filepath, map);
+        // System.out.println(map);
+        // appendDictToCsv(filePath, map);
+
+        // Find a book
+        DataFrame foundBook = findBook(filePath, "Sree Basics");
+        System.out.println("Found Book: " + foundBook);
+
+        // Update book status
+        System.out.println(updateBookStatus(filePath, "Sree Basics", "yes"));
     }
-
 }
-

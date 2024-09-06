@@ -8,7 +8,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>book-management</name>
-  <url>http://www.example.com</url>
+  <url>http://www.example-book.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,6 +16,17 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.dflib</groupId>
+        <artifactId>dflib-bom</artifactId>
+        <version>1.0.0-M22</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -28,8 +39,18 @@
       <artifactId>opencsv</artifactId>
       <version>5.5.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.dflib</groupId>
+      <artifactId>dflib</artifactId>
+      <version>1.0.0-M22</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dflib</groupId>
+      <artifactId>dflib-csv</artifactId>
+      <version>1.0.0-M22</version>
+    </dependency>
   </dependencies>
-
+  
   <build>
     <pluginManagement>
       <plugins>

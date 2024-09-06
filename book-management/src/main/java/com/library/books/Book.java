@@ -2,6 +2,8 @@ package com.library.books;
 
 import java.util.HashMap;
 import java.util.List;
+
+import org.dflib.DataFrame;
 /**
  * The {@code Book} class represents a book in the library.
  * It contains details about the book such as its name, author, volume, and issued status.
@@ -66,39 +68,40 @@ public class Book {
 
     }
 
-    public static List<String[]> get_all_books(){
+    public static DataFrame get_all_books(){
         return BookUtils.getBooks(filePath);
-    }
-
-    /**
-     * Finds a book in the library.
-     * This method is not yet implemented.
-     *
-     * @throws UnsupportedOperationException if the method is called
-     */
-    public static List<String[]> find_book(String name) {
-        return BookUtils.findBook(filePath, name);
-    }
-
-    /**
-     * Issues a book from the library.
-     * This method is not yet implemented.
-     *
-     * @throws UnsupportedOperationException if the method is called
-     */
-    public static void issue_book(String name) {
-        List<String[]> book = find_book(name);
-        System.out.println(book);
-
-    }
-
-    /**
-     * Returns a book to the library.
-     * This method is not yet implemented.
-     *
-     * @throws UnsupportedOperationException if the method is called
-     */
-    public static void return_book() {
-        throw new UnsupportedOperationException("Not mentioned yet");
+//     
     }
 }
+//     /**
+//      * Finds a book in the library.
+//      * This method is not yet implemented.
+//      *
+//      * @throws UnsupportedOperationException if the method is called
+//      */
+//     public static List<String[]> find_book(String name) {
+//         return BookUtils.findBook(filePath, name);
+//     }
+
+//     /**
+//      * Issues a book from the library.
+//      * This method is not yet implemented.
+//      *
+//      * @throws UnsupportedOperationException if the method is called
+//      */
+//     public static void issue_book(String name) {
+//         List<String[]> book = find_book(name);
+//         System.out.println(book);
+
+//     }
+
+//     /**
+//      * Returns a book to the library.
+//      * This method is not yet implemented.
+//      *
+//      * @throws UnsupportedOperationException if the method is called
+//      */
+//     public static void return_book() {
+//         throw new UnsupportedOperationException("Not mentioned yet");
+//     }
+// }

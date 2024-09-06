@@ -1,6 +1,4 @@
 package com.library.books;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -69,8 +67,7 @@ public class Main
         System.out.println("Issued: " + issued);
 
         // Create an object of Book class and call the function
-        Book Book1 = new Book(book_name, author_name, volume, issued);
-        Book1.add_book();
+        Book.add_book();
 
     }
 
@@ -81,16 +78,14 @@ public class Main
      * @throws UnsupportedOperationException if the method is called
      */
     public static void list_books() {
-        Book Book2 = new Book("ssa", "fsa", "1st", "no");
-        List<String> headings = new ArrayList<String>();
-        headings.add("Name");
-        headings.add("Author");
-        headings.add("Volume");
-        headings.add("Issued");
+        //Book Book2 = new Book("ssa", "fsa", "1st", "no");
+        // List<String> headings = new ArrayList<String>();
+        // headings.add("Name");
+        // headings.add("Author");
+        // headings.add("Volume");
+        // headings.add("Issued");
 
-        for(String[] book : Book2.get_all_books()){
-            System.out.println(book);
-        }
+        System.out.println(Book.get_all_books());
                 
         //return Book2.get_all_books();
     }
