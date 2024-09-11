@@ -19,6 +19,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.9</version>
+    </dependency>    
+      <dependency>
         <groupId>org.dflib</groupId>
         <artifactId>dflib-bom</artifactId>
         <version>1.0.0-M22</version>
@@ -35,20 +40,22 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.opencsv</groupId>
-      <artifactId>opencsv</artifactId>
-      <version>5.5.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.dflib</groupId>
-      <artifactId>dflib</artifactId>
-      <version>1.0.0-M22</version>
-    </dependency>
-    <dependency>
-      <groupId>org.dflib</groupId>
-      <artifactId>dflib-csv</artifactId>
-      <version>1.0.0-M22</version>
-    </dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.6</version>
+   </dependency>
+   
+   <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.9.6</version>
+   </dependency>
+   
+   <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.6</version>
+   </dependency>
   </dependencies>
   
   <build>
