@@ -20,8 +20,8 @@ public class BookUtils {
      * @param book The book object to add to the library
      */
     public static void appendBook(String filePath, Book book) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-                writer.write(book.toString());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,true))) {
+                writer.append(book.toString());
                 writer.newLine();
         } catch (IOException e) {
             System.err.println("Error "+e);

@@ -138,7 +138,7 @@ public class Book {
      * @param name name of the book to be issued
     */
     public void issue_book(String filePath, String name){
-        BookUtils.updateBookStatus(filePath, name, "Yes");
+        BookUtils.updateBookStatus(filePath, name, "yes");
 
         System.out.println("Book issued: "+name);
 
@@ -150,7 +150,7 @@ public class Book {
      * @param name name of the book to be issued
     */
     public void return_book(String filePath, String name){
-        BookUtils.updateBookStatus(filePath, name, "No");
+        BookUtils.updateBookStatus(filePath, name, "no");
         System.out.println("Book returned: "+name);
 
     }

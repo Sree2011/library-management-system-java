@@ -44,12 +44,12 @@ public class Main
             case 3 -> {
                 System.out.println("Enter the name of the book you want to be issued:");
                 String name = sc.nextLine();
-                issue_book(name);
+                issue_book(name.toLowerCase());
             }
             case 4 -> {
                 System.out.println("Enter the name of the book you want to return:");
                 String namer = sc.nextLine();
-                issue_book(namer);
+                return_book(namer.toLowerCase());
             }
             default -> System.out.println("invalid input");
         }
@@ -63,12 +63,12 @@ public class Main
 
         // Ask for the book details
         System.out.println("Enter the name of the book to add:");
-        String book_name = sc.nextLine();
+        String book_name = sc.nextLine().toLowerCase();
         
         System.out.println("Enter the author of the book to add:");
-        String author_name = sc.nextLine();
+        String author_name = sc.nextLine().toLowerCase();
         System.out.println("Enter the volume number of the book to add(Eg. 1st, 2nd..):");
-        String volume = sc.nextLine();
+        String volume = sc.nextLine().toLowerCase();
         String issued = "no";
 
         System.out.println("Book Name: " + book_name);
@@ -100,7 +100,7 @@ public class Main
      */
     public static void issue_book(String name) {
         Book Book2 = new Book("ssa", "fsa", "1st", "no");
-        Book2.issue_book(filePath, name);
+        Book2.issue_book(filePath, name.toLowerCase());
     }
 
     /**
@@ -111,6 +111,6 @@ public class Main
      */
     public static void return_book(String name) {
         Book Book2 = new Book("ssa", "fsa", "1st", "no");
-        Book2.return_book(filePath, name);
+        Book2.return_book(filePath, name.toLowerCase());
     }
 }
