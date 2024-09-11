@@ -12,6 +12,8 @@ public class Main
      */
     static Scanner sc = new Scanner(System.in);
 
+    static String filePath = "./book-management/src/data/books.txt";
+
     /**
      * The main method which is the entry point of the application.
      * It welcomes the user, displays options, and performs operations based on user input.
@@ -37,11 +39,19 @@ public class Main
         // Perform operation based on the input
         switch(option)
         {
-            case 1: add_book(); break;
-            case 2: list_books(); break;
-            //case 3: issue_book(); break;
-            //case 4: return_book(); break;
-            default: System.out.println("invalid input");
+            case 1 -> add_book();
+            case 2 -> list_books();
+            case 3 -> {
+                System.out.println("Enter the name of the book you want to be issued:");
+                String name = sc.nextLine();
+                issue_book(name);
+            }
+            case 4 -> {
+                System.out.println("Enter the name of the book you want to return:");
+                String namer = sc.nextLine();
+                issue_book(namer);
+            }
+            default -> System.out.println("invalid input");
         }
         
     }
@@ -67,48 +77,40 @@ public class Main
         System.out.println("Issued: " + issued);
 
         // Create an object of Book class and call the function
-        Book.add_book();
+        Book book = new Book(book_name, author_name, volume, issued);
+        book.add_book(filePath);
 
     }
 
     /**
      * Lists all books in the library.
+     * 
+     */
+    public static void list_books() {
+        Book Book2 = new Book("ssa", "fsa", "1st", "no");
+        System.out.println(Book2.get_all_books(filePath));
+    
+    }
+            
+    
+
+    /**
+     * Issues a book from the library.
+     * 
+     */
+    public static void issue_book(String name) {
+        Book Book2 = new Book("ssa", "fsa", "1st", "no");
+        Book2.issue_book(filePath, name);
+    }
+
+    /**
+     * Returns a book to the library.
      * This method is not yet implemented.
      *
      * @throws UnsupportedOperationException if the method is called
      */
-    public static void list_books() {
-        //Book Book2 = new Book("ssa", "fsa", "1st", "no");
-        // List<String> headings = new ArrayList<String>();
-        // headings.add("Name");
-        // headings.add("Author");
-        // headings.add("Volume");
-        // headings.add("Issued");
-
-        System.out.println(Book.get_all_books());
-                
-        //return Book2.get_all_books();
+    public static void return_book(String name) {
+        Book Book2 = new Book("ssa", "fsa", "1st", "no");
+        Book2.return_book(filePath, name);
     }
-            
-    // }
-
-    // /**
-    //  * Issues a book from the library.
-    //  * This method is not yet implemented.
-    //  *
-    //  * @throws UnsupportedOperationException if the method is called
-    //  */
-    // public static void issue_book() {
-    //     throw new UnsupportedOperationException("Not supported yet.");
-    // }
-
-    // /**
-    //  * Returns a book to the library.
-    //  * This method is not yet implemented.
-    //  *
-    //  * @throws UnsupportedOperationException if the method is called
-    //  */
-    // public static void return_book() {
-    //     throw new UnsupportedOperationException("Not supported yet.");
-    // }
 }

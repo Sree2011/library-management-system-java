@@ -1,40 +1,32 @@
-package com.library.books;
-
-import java.util.HashMap;
-import java.util.List;
-
-import org.dflib.DataFrame;
 /**
  * The {@code Book} class represents a book in the library.
  * It contains details about the book such as its name, author, volume, and issued status.
  */
+package com.library.books;
+
+import java.util.List;
+
+
 public class Book {
     /**
      * The name of the book.
      */
-    static String name;
+    private String name;
 
     /**
      * The author of the book.
      */
-    static String author;
+    private String author;
 
     /**
      * The volume of the book.
      */
-    static String volume;
+    private String volume;
 
     /**
      * The issued status of the book.
      */
-    static String issued;
-
-
-    /**
-     * 
-     * Filepath of the library csv file
-     */
-    static String filePath = "./book-management/src/data/books.csv";
+    private String issued;
 
     /**
      * Constructs a new {@code Book} with the specified details.
@@ -52,56 +44,114 @@ public class Book {
     }
 
     /**
-     * Adds a new book to the library.
-     * This method is not yet implemented.
-     *
-     * @throws UnsupportedOperationException if the method is called
+     * Returns the value of book name
+     * @return name name of the book
      */
-    public static void add_book() {
-        HashMap<String,String> my_dict = new HashMap<String,String>();
-        my_dict.put("name", name);
-        my_dict.put("author",author);
-        my_dict.put("volume",volume);
-        my_dict.put("issued",issued);
+    public String getName() {
+        return name;
+    }
 
-        BookUtils.appendDictToCsv(filePath,my_dict);
+    /**
+     * Sets the value of the book name
+     * @param name name of the book
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the value of book author
+     * @return author author of the book
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * Sets the value of the book author
+     * @param author author of the book
+     */
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    /**
+     * Returns the value of book volume
+     * @return volume volume number of the book
+     */
+    public String getVolume() {
+        return volume;
+    }
+
+    /**
+     * Sets the value of book volume
+     * @param volume volume number of the book
+     */
+    public void setVolume(String volume) {
+        this.volume = volume;
+    }
+
+    /**
+     * Returns the value of issued status
+     * @return issued the issued status of the book
+     */
+    public String getIssued() {
+        return issued;
+    }
+    
+    /**
+     * Sets the value of issued status
+     * @param issued the issued status of the book
+     */
+    public void setIssued(String issued) {
+        this.issued = issued;
+    }
+
+    /**
+     * Displays the values in book object
+     */
+    @Override
+    public String toString() {
+        return name + "," + author + "," + volume + "," + issued;
+    }
+
+    /**
+     * Adds the book to the library
+     * @param filePath path to the library file
+    */
+    public void add_book(String filePath) {
+        BookUtils.appendBook(filePath, this);
+    }
+
+    /**
+     * Lists all the books in the library
+     * @param filePath path to the library file
+    */
+    public List<Book> get_all_books(String filePath){
+        return BookUtils.getBooks(filePath);
+    }
+
+
+    /**
+     * Issues the book and updates its status to "Yes"
+     * @param filePath path to the library file
+     * @param name name of the book to be issued
+    */
+    public void issue_book(String filePath, String name){
+        BookUtils.updateBookStatus(filePath, name, "Yes");
+
+        System.out.println("Book issued: "+name);
 
     }
 
-    public static DataFrame get_all_books(){
-        return BookUtils.getBooks(filePath);
-//     
+    /**
+     * Returns the book and updates its status to "No"
+     * @param filePath path to the library file
+     * @param name name of the book to be issued
+    */
+    public void return_book(String filePath, String name){
+        BookUtils.updateBookStatus(filePath, name, "No");
+        System.out.println("Book returned: "+name);
+
     }
 }
-//     /**
-//      * Finds a book in the library.
-//      * This method is not yet implemented.
-//      *
-//      * @throws UnsupportedOperationException if the method is called
-//      */
-//     public static List<String[]> find_book(String name) {
-//         return BookUtils.findBook(filePath, name);
-//     }
-
-//     /**
-//      * Issues a book from the library.
-//      * This method is not yet implemented.
-//      *
-//      * @throws UnsupportedOperationException if the method is called
-//      */
-//     public static void issue_book(String name) {
-//         List<String[]> book = find_book(name);
-//         System.out.println(book);
-
-//     }
-
-//     /**
-//      * Returns a book to the library.
-//      * This method is not yet implemented.
-//      *
-//      * @throws UnsupportedOperationException if the method is called
-//      */
-//     public static void return_book() {
-//         throw new UnsupportedOperationException("Not mentioned yet");
-//     }
-// }

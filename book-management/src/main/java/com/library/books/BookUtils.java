@@ -1,66 +1,104 @@
+/**
+ * The {@code BookUtils} class contains the utility functions for the library.
+ * It contains functions to add, update, find, issue and return books.
+ */
 package com.library.books;
 
-
-import java.io.File;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 
 public class BookUtils {
 
-    public static void appendDictToCsv(String filePath, HashMap<String, String> myDict) {
-        Dictionary<String, Integer> dict = new Hashtable<>();
-        dict.put("Alice", 25);
-        dict.put("Bob", 30);
-        dict.put("Charlie", 35);
+    /**
+     * Adds a book to the library
+     * @param filePath the filepath of the library file
+     * @param book The book object to add to the library
+     */
+    public static void appendBook(String filePath, Book book) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                writer.write(book.toString());
+                writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error "+e);
+        }
+    }
 
-        ObjectMapper gson = new ObjectMapper();
-        String json;
-        try {
-            json = gson.writeValueAsString(dict);
-            System.out.println(json);
-            gson.writeValue(new File(".book-management/src/data/books.json"), dict);
-            System.out.println("JSON written to file: output.json");
-        } catch (Exception ex) {
-            System.out.println("Error! "+ex);
+    
+    /**
+     * Lists all the books in the library
+     * @param filePath the filepath of the library file
+     * @return books the list of books in the library
+     */
+    public static List<Book> getBooks(String filePath) {
+        List<Book> books = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] details = line.split(",");
+                if (details.length == 4) {
+                    Book book = new Book(details[0], details[1], details[2], details[3]);
+                    books.add(book);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error "+e);
         }
 
-        
+        return books;
     }
 
-    public static void getBooks(String filePath) {
-        ObjectMapper gson = new ObjectMapper();
-        ObjectReader sa = gson.reader();
-        System.out.println(sa);
+    
+    /**
+     * Finds a book in the library by name
+     * @param filePath the filepath of the library file
+     * @param name name of the book to be found
+     * @return
+     */
+    public static Book findBook(String filePath, String name) {
+        List<Book> books = getBooks(filePath);
+        for (Book book : books) {
+            if (book.getName().equals(name)) {
+                System.out.println("Name found: " + book);
+                return book;
+            }
+        }
+        System.out.println("Name not found.");
+        return null;
     }
 
-    public static List<String[]> findBook(String filePath, String name) {
-        throw new UnsupportedOperationException("Not implemented");
-    }
-
+    /**
+     * Updates the issued status of the book
+     * @param filePath the filepath of the library file
+     * @param name name of the book to be updated
+     * @param status "Yes" if issuing the book, "No" if returning the book
+     */
     public static void updateBookStatus(String filePath, String name, String status) {
-        throw new UnsupportedOperationException("Not implemented");
-    }
+        List<Book> books = getBooks(filePath);
 
-    public static void main(String[] args) {
-        String filepath = "./book-management/src/data/books.csv";
-        HashMap<String,String> map = new HashMap<>();
-        String[] keys = {"name", "author", "volume", "issued"};
-        String[] values = {"Python Basics", "Sree", "1st", "no"};
-
-        // Map keys to values
-        for (int i = 0; i < keys.length; i++) {
-            map.put(keys[i], values[i]);
+        for (Book book : books) {
+            if (book.getName().equals(name)) {
+                System.out.println("Found book: " + book);
+                book.setIssued(status);
+                
+                 // Update the issued status
+                break;
+            }
         }
 
-        // Print the HashMap
-        System.out.println(map);
-        appendDictToCsv(filepath, map);
+         // Rewrite the updated list to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Book book : books) {
+                writer.write(book.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error "+e);
+        }
     }
-
 }
-
