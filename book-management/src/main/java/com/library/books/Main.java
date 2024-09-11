@@ -96,6 +96,7 @@ public class Main
 
     /**
      * Issues a book from the library.
+     * @param name Name of the book to be issued
      * 
      */
     public static void issue_book(String name) {
@@ -105,9 +106,8 @@ public class Main
 
     /**
      * Returns a book to the library.
-     * This method is not yet implemented.
-     *
-     * @throws UnsupportedOperationException if the method is called
+     * 
+     * @param name Name of the book to be returned
      */
     public static void return_book(String name) {
         Book Book2 = new Book("ssa", "fsa", "1st", "no");
